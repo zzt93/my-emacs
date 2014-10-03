@@ -177,3 +177,8 @@
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)
+
+;;set the emacs to open buffer in vertical split by default 
+;;(http://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal)
+(setq split-height-threshold nil)
+(setq split-width-threshold 80)
