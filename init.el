@@ -185,20 +185,19 @@
 
 ;;set "jk" as Escape
 ;;(http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode?lq=1)
-(define-key evil-insert-state-map "j" #'cofi/maybe-exit)
 
-(evil-define-command cofi/maybe-exit ()
-  :repeat change
-  (interactive)
-  (let ((modified (buffer-modified-p)))
-    (insert "j")
-    (let ((evt (read-event (format "Insert %c to exit insert state" ?k)
-               nil 0.5)))
-      (cond
-       ((null evt) (message ""))
-       ((and (integerp evt) (char-equal evt ?k))
-    (delete-char -1)
-    (set-buffer-modified-p modified)
-    (push 'escape unread-command-events))
-       (t (setq unread-command-events (append unread-command-events
-                          (list evt))))))))
+;;set "jk" exit evil-mode's operator pending state
+;;(http://stackoverflow.com/questions/24966279/exit-emacs-evil-operator-mode-with-jk-keychord)
+(define-key evil-operator-state-map "j" 'evil-operator-state-j)
+
+(evil-define-command evil-operator-state-j ()   (save-excursion
+    (let ((evt (read-event "Press k to exit operator state" nil 0.5)))
+      (if (and (integerp evt) (char-equal evt ?k))
+          (keyboard-quit)
+        ;; assume <down> is bound to the same as j:
+        (let* ((operator-string (substring (this-command-keys) 0 -1)) ; get the keys used to invoke the operator
+               (new-macro (kbd (concat operator-string " <down>"))))  ; add " <down>" to the end instead of "j"
+          (evil-force-normal-state)
+          (execute-kbd-macro new-macro)
+          (when (not (null evt))
+            (push evt unread-command-events))))))) ; process any other key pressed within 0.5 seconds
