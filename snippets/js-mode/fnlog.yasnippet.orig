@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: function fn(...) { console.log('fn called'); }
+# key: fn
+# contributor: Chen Bin <chenbin DOT sh AT gmail>
+# --
+function ${1:name} (${2:args}) {
+<<<<<<< HEAD
+  console.log('${1:$(yas/substr text "[^ ]*")} called');
+=======
+  console.log('${1:$(yas/substr yas-text "[^ ]*")} called');
+>>>>>>> upstream/master
+  $0
+}

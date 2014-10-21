@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .wg-file.el
 /url/cache
 /.emacs.desktop
@@ -44,10 +43,3 @@ org-clock-save.el
 emms/
 projectile-bookmarks.eld
 history
-=======
-# Compiled
-*.elc
-
-# Packaging
-.cask
->>>>>>> fcb29347703513f40ab08d0729ea2c7af50544f9
