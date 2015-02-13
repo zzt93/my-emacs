@@ -1,5 +1,5 @@
 #name : for(){ ... }
 # --
-for (;${1:condition};) {
+for (unsigned int i = 0; i < ${1:condition}; ++i) {
     $2
-} 
+}

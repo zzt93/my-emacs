@@ -199,3 +199,40 @@
           (execute-kbd-macro new-macro)
           (when (not (null evt))
             (push evt unread-command-events))))))) ; process any other key pressed within 0.5 seconds
+
+;;set compile-command for c(http://www.emacswiki.org/emacs/CompileCommand)
+ (require 'compile)
+ (add-hook 'c-mode-hook
+           (lambda ()
+	     (unless (file-exists-p "Makefile")
+	       (set (make-local-variable 'compile-command)
+                    ;; emulate make's .c.o implicit pattern rule, but with
+                    ;; different defaults for the CC, CPPFLAGS, and CFLAGS
+                    ;; variables:
+                    ;; $(CC) -o $@ $(CFLAGS) $<
+		    (let ((file (file-name-nondirectory buffer-file-name)))
+                      (format "%s -o %s %s %s"
+                              (or (getenv "CC") "gcc")
+                              (file-name-sans-extension file)
+                              (or (getenv "CFLAGS") " -Wall -g -Wextra")
+			      file))))))
+
+;;set compile-command for c++(http://www.emacswiki.org/emacs/CompileCommand)
+ (require 'compile)
+ (add-hook 'c++-mode-hook
+           (lambda ()
+	     (unless (file-exists-p "Makefile")
+	       (set (make-local-variable 'compile-command)
+                    ;; emulate make's .c.o implicit pattern rule, but with
+                    ;; different defaults for the CC, CPPFLAGS, and CFLAGS
+                    ;; variables:
+                    ;; $(CC) -o $@ $(CPPFLAGS) $<
+		    (let ((file (file-name-nondirectory buffer-file-name)))
+                      (format "%s -o %s %s %s"
+                              (or (getenv "CC") "g++")
+                              (file-name-sans-extension file)
+                              (or (getenv "CPPFLAGS") "-DDEBUG=9 -g -Wall -std=c++11 -Wextra")
+			      file))))))
+
+(custom-set-variables
+ '(markdown-command "pandoc"))
