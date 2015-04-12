@@ -1,0 +1,39 @@
+# -*- mode: snippet -*-
+# name: public
+# key: codejam
+# --
+
+#include "utility/daliy.hpp"
+#include "utility/console_reader.cpp"
+
+#include <algorithm>
+
+using std::set;
+using std::binary_search;
+using std::sort;
+
+int ${0:fun}() {
+
+}
+
+int main(int argc, char *argv[]){
+    Console_reader r;
+    int trial;
+    r.next_int(trial);
+    for (unsigned int i = 0; i < trial; ++i) {
+        int nums;
+        r.next_int(nums);
+        int tmp;
+        vector<int> v1, v2;
+        for (unsigned int i = 0; i < items && r.next_int(tmp); ++i) {
+            v1.push_back(tmp);
+        }
+        for (unsigned int i = 0; i < items && r.next_int(tmp); ++i) {
+            v2.push_back(tmp);
+        }
+        assert(v1.size() == v2.size() && v2.size() == items);
+        int res = $0
+        cout << "Case #" << i+1 << ": " << res << endl;
+    }
+	return 0;
+}

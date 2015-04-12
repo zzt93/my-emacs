@@ -211,7 +211,7 @@
                     ;; variables:
                     ;; $(CC) -o $@ $(CFLAGS) $<
 		    (let ((file (file-name-nondirectory buffer-file-name)))
-                      (format "%s -o %s %s %s"
+                      (format "%s -o %s.out %s %s"
                               (or (getenv "CC") "gcc")
                               (file-name-sans-extension file)
                               (or (getenv "CFLAGS") " -Wall -g -Wextra")
@@ -228,7 +228,7 @@
                     ;; variables:
                     ;; $(CC) -o $@ $(CPPFLAGS) $<
 		    (let ((file (file-name-nondirectory buffer-file-name)))
-                      (format "%s -o %s %s %s"
+                      (format "%s -o %s.out %s %s"
                               (or (getenv "CC") "g++")
                               (file-name-sans-extension file)
                               (or (getenv "CPPFLAGS") "-DDEBUG=9 -g -Wall -std=c++11 -Wextra")
