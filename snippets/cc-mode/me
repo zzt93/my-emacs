@@ -2,7 +2,8 @@
 # --
 
 /*
-    args: {$1:$2}
-    return value:$3
-    Usage:$4
+    {$1:$2}
+    $3
+    return value:$4
+    Usage:$5
 */
